@@ -1,0 +1,9 @@
+@tailwind components;
+@layer components {
+  .cart-wrapper {
+    @apply relative w-fit cursor-pointer;
+  }
+  .cart-badge {
+    @apply absolute -right-2 -top-1 border-2 rounded-full border-emerald-500 bg-emerald-500 text-white text-xs w-4 h-4 flex justify-center items-center;
+  }
+}
