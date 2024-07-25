@@ -28,7 +28,6 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     getApiData(api);
   }, []);
-  console.log(state);
   return (
     <ProductContext.Provider value={{ ...state }}>
       {children}

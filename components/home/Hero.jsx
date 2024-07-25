@@ -16,7 +16,7 @@ const Hero = () => {
         </section>
         <section className=" w-1/2">
           <img
-            src="../img/hero_img.jpg"
+            src="../img/hero_img.webp"
             alt="hero img"
             className="h-full w-full"
           />
