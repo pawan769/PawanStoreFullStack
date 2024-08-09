@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 const FeaturedCard = ({ item }) => {
-  console.log("hello");
   return (
     <div className=" w-fit m-2 relative  w-[30%] cursor-pointer hover:animate-pulse">
       <div className="h-[250px] w-[250] ">

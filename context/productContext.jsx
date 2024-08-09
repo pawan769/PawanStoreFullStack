@@ -10,10 +10,13 @@ const initialState = {
   isError: false,
   products: [],
   featured: [],
+  isSingleLoading: false,
+  singleProduct: {},
 };
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const getApiData = async (url) => {
     dispatch({ type: "SET_LOADING" });
     try {
@@ -25,11 +28,24 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "API_ERROR" });
     }
   };
+
+  const getSingleProduct = async (url) => {
+    dispatch({ type: "SET_SINGLE_LOADING" });
+    try {
+      const res = await axios.get(url);
+      const singleProduct = await res.data;
+      dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct[0] });
+    } catch (error) {
+      dispatch({ type: "SINGLE_API_ERROR" });
+    }
+  };
+
   useEffect(() => {
     getApiData(api);
   }, []);
+
   return (
-    <ProductContext.Provider value={{ ...state }}>
+    <ProductContext.Provider value={{ ...state, getSingleProduct }}>
       {children}
     </ProductContext.Provider>
   );

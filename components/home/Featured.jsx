@@ -3,7 +3,6 @@ import FeaturedCard from "../cards/FeaturedCard";
 
 const Featured = () => {
   const { isLoading, featured } = useProductContext();
-  console.log(featured);
 
   if (isLoading) {
     return <div>....loading</div>;
