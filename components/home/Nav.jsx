@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./nav.css";
 const Nav = () => {
   return (
-    <nav className="flex justify-between items-center px-6 py-3 font-sans">
+    <nav className="flex justify-between items-center px-6 py-3 ">
       <h1 className="text-2xl font-bold border-4 border-black p-1 cursor-pointer">
         <span className="bg-emerald-500 px-1 mr-1 text-white ">Pawan</span>
         <span>Store</span>

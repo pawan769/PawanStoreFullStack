@@ -1,11 +1,13 @@
 import { useProductContext } from "../../context/productContext";
 import FeaturedCard from "../cards/FeaturedCard";
+import { Link } from "react-router-dom";
+import Loading from "../products/Loading";
 
 const Featured = () => {
   const { isLoading, featured } = useProductContext();
 
   if (isLoading) {
-    return <div>....loading</div>;
+    return <Loading />;
   }
 
   return (
@@ -17,7 +19,12 @@ const Featured = () => {
         </h2>
         <div className="flex justify-between">
           {featured.map((item) => {
-            return <FeaturedCard key={item._id} item={item} />;
+            console.log(item);
+            return (
+              <Link to={`/products/${item._id}`} key={item._id}>
+                <FeaturedCard item={item} />;
+              </Link>
+            );
           })}
         </div>
       </div>
