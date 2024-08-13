@@ -19,7 +19,6 @@ const Featured = () => {
         </h2>
         <div className="flex justify-between">
           {featured.map((item) => {
-            console.log(item);
             return (
               <Link to={`/products/${item._id}`} key={item._id}>
                 <FeaturedCard item={item} />;

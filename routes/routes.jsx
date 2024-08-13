@@ -4,6 +4,7 @@ import About from "../components/about/About.jsx";
 import Contacts from "../components/contacts/Contacts.jsx";
 import Products from "../components/products/Products.jsx";
 import SingleProduct from "../components/products/SingleProduct.jsx";
+import Cart from "../components/Cart.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/contacts",
     element: <Contacts />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
 ]);
 

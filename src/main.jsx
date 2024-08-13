@@ -5,11 +5,14 @@ import "./index.css";
 
 import { RouterProvider } from "react-router-dom";
 import { AppProvider } from "../context/productContext";
+import { CartProvider } from "../context/cartContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AppProvider>
+  // <React.StrictMode>
+  <AppProvider>
+    <CartProvider>
       <RouterProvider router={router} />
-    </AppProvider>
-  </React.StrictMode>
+    </CartProvider>
+  </AppProvider>
+  // </React.StrictMode>
 );

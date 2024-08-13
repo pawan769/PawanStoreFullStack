@@ -13,14 +13,18 @@ import { LiaGiftSolid } from "react-icons/lia";
 import StarRating from "../StarRating.jsx";
 import NavigationBar from "../NavigationBar.jsx";
 import Loading from "./Loading.jsx";
+import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../../context/cartContext.jsx";
 
 const SingleProduct = () => {
   const { id } = useParams();
 
   const { isSingleLoading, singleProduct, getSingleProduct } =
     useProductContext();
+  const { setCartPurchase } = useCartContext();
 
   const Url = `https://restapi-production-fe9e.up.railway.app/api/products/id`;
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSingleProduct(`${Url}/${id}`);
@@ -136,9 +140,27 @@ const SingleProduct = () => {
                         +
                       </button>
                     </div>
-                    <button className="flex border-2 text-white font-semibold border-emerald-500 bg-emerald-500 w-1/4 h-[3rem] items-center justify-center">
+                    {/* <Link to="/cart" state={{ singleProduct, no_of_items }}> */}
+                    <button
+                      className="flex border-2 text-white font-semibold border-emerald-500 bg-emerald-500 w-1/4 h-[3rem] items-center justify-center"
+                      onClick={() => {
+                        console.log(singleProduct);
+                        const purchaseData = {
+                          id: singleProduct._id,
+                          name: singleProduct.name,
+                          img: singleProduct.img,
+                          category: singleProduct.category,
+                          price: singleProduct.price,
+                          quantity: no_of_items,
+                        };
+
+                        setCartPurchase(purchaseData);
+                        navigate("/cart");
+                      }}
+                    >
                       Add To Cart
                     </button>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>
