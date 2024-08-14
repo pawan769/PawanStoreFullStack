@@ -12,6 +12,7 @@ const initialState = {
   featured: [],
   isSingleLoading: false,
   singleProduct: {},
+  isGrid: true,
 };
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
@@ -40,12 +41,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const setIsGrid = (isGrid) => {
+    dispatch({ type: "SET_ISGRID", payload: isGrid });
+  };
+
   useEffect(() => {
     getApiData(api);
   }, []);
 
   return (
-    <ProductContext.Provider value={{ ...state, getSingleProduct }}>
+    <ProductContext.Provider value={{ ...state, getSingleProduct,setIsGrid }}>
       {children}
     </ProductContext.Provider>
   );

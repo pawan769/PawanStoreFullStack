@@ -10,6 +10,15 @@ const cartReducer = (state, action) => {
         isLoading: false,
       };
     }
+    case "DELETE_ITEM": {
+      const itemToDelete = state.products.findIndex(
+        (obj) => obj.id == action.payload
+      );
+      console.log(itemToDelete);
+      state.products.splice(itemToDelete, 1);
+
+      return { ...state };
+    }
     default:
       return state;
   }

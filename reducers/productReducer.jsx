@@ -5,6 +5,11 @@ const productReducer = (state, action) => {
         ...state,
         isLoading: true,
       };
+    case "SET_ISGRID":
+      return {
+        ...state,
+        isGrid: action.payload,
+      };
     case "API_ERROR":
       return {
         ...state,

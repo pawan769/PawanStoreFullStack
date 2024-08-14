@@ -1,7 +1,9 @@
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./nav.css";
+import { useCartContext } from "../../context/cartContext";
 const Nav = () => {
+  const { products } = useCartContext();
   return (
     <nav className="flex justify-between items-center px-6 py-3 ">
       <h1 className="text-2xl font-bold border-4 border-black p-1 cursor-pointer">
@@ -16,10 +18,10 @@ const Nav = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/products">Products</Link>
             </li>
             <li>
-              <Link to="/products">Products</Link>
+              <Link to="/about">About</Link>
             </li>
             <li>
               <Link to="/contacts">Contacts</Link>
@@ -35,8 +37,14 @@ const Nav = () => {
           </button>
 
           <div className="cart-wrapper flex justify-center">
-            <FiShoppingCart size={25} className="cart" />
-            <span className="cart-badge">3</span>
+            <Link to={"/cart"}>
+              <FiShoppingCart size={25} className="cart" />
+            </Link>
+            <span
+              className={`${products.length > 0 ? "cart-badge " : "hidden"} `}
+            >
+              {products.length}
+            </span>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ const SingleProduct = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [no_of_items, setItems] = useState(0);
+  const [no_of_items, setItems] = useState(1);
 
   return (
     <>
@@ -117,7 +117,6 @@ const SingleProduct = () => {
                       <button
                         className=" text-3xl font-bold text-center"
                         onClick={() => {
-                          console.log("clicked");
                           if (no_of_items != 0) setItems(no_of_items - 1);
                         }}
                       >
@@ -144,7 +143,6 @@ const SingleProduct = () => {
                     <button
                       className="flex border-2 text-white font-semibold border-emerald-500 bg-emerald-500 w-1/4 h-[3rem] items-center justify-center"
                       onClick={() => {
-                        console.log(singleProduct);
                         const purchaseData = {
                           id: singleProduct._id,
                           name: singleProduct.name,
