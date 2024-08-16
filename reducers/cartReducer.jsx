@@ -2,7 +2,15 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case "SET_PURCHASE_ITEM": {
       const newArray = state.products;
-      newArray.push(action.payload);
+      const itemIndex = newArray.findIndex(
+        (elem) => elem.id == action.payload.id
+      );
+      itemIndex !== -1
+        ? (newArray[itemIndex] = {
+            ...newArray[itemIndex],
+            quantity: newArray[itemIndex].quantity + action.payload.quantity,
+          })
+        : newArray.push(action.payload);
 
       return {
         ...state,
@@ -14,7 +22,7 @@ const cartReducer = (state, action) => {
       const itemToDelete = state.products.findIndex(
         (obj) => obj.id == action.payload
       );
-      console.log(itemToDelete);
+
       state.products.splice(itemToDelete, 1);
 
       return { ...state };

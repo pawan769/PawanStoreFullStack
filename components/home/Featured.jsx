@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Loading from "../products/Loading";
 
 const Featured = () => {
-  const { isLoading, featured } = useProductContext();
+  const { isLoading, featured} = useProductContext();
 
   if (isLoading) {
     return <Loading />;
@@ -21,7 +21,7 @@ const Featured = () => {
           {featured.map((item) => {
             return (
               <Link to={`/products/${item._id}`} key={item._id}>
-                <FeaturedCard item={item} />;
+                <FeaturedCard item={item} isGrid={true} />;
               </Link>
             );
           })}

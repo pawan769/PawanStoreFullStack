@@ -6,10 +6,12 @@ const Nav = () => {
   const { products } = useCartContext();
   return (
     <nav className="flex justify-between items-center px-6 py-3 ">
-      <h1 className="text-2xl font-bold border-4 border-black p-1 cursor-pointer">
-        <span className="bg-emerald-500 px-1 mr-1 text-white ">Pawan</span>
-        <span>Store</span>
-      </h1>
+      <Link to={"/"}>
+        <h1 className="text-2xl font-bold border-4 border-black p-1 cursor-pointer">
+          <span className="bg-emerald-500 px-1 mr-1 text-white ">Pawan</span>
+          <span>Store</span>
+        </h1>
+      </Link>
 
       <div className="flex justify-center items-center gap-10">
         <div className="flex items-center mx-10">

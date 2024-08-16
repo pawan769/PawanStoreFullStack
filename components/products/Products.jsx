@@ -5,15 +5,14 @@ import { IoGrid, IoList } from "react-icons/io5";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const Products = () => {
-  const { products } = useProductContext();
+  const { products, isGrid, setIsGrid } = useProductContext();
   const [sliderValue, setSliderValue] = useState(10000);
-  const { isGrid, setIsGrid } = useProductContext();
 
   return (
     <>
       <Nav />
-      <div className="flex justify-center items-center mt-16 mx-16">
-        <div className="container  w-[70vw] flex flex-col gap-2">
+      <div className="flex justify-center items-center mt-16 ml-40">
+        <div className="container w-[74vw] flex flex-col gap-2">
           <div className="header flex items-center gap-36">
             <input
               type="text"
@@ -28,6 +27,7 @@ const Products = () => {
                 }}
               />
               <IoList
+                className="cursor-pointer"
                 onClick={() => {
                   setIsGrid(false);
                 }}
@@ -44,10 +44,11 @@ const Products = () => {
               <option value="highest">price(highest)</option>
             </select>
           </div>
-          <div className="flex gap-10">
-            <section className="flex flex-col gap-8 min-w-[20%] text-zinc-500">
-              <div className="flex flex-col gap-2 ">
+          <div className="flex gap-1">
+            <section className="flex flex-col gap-8 min-w-[12rem] max-w-[12rem] text-zinc-500">
+              <div className="flex flex-col gap-2 mt-10">
                 <h2 className="font-bold text-zinc-600 text-lg">Category</h2>
+                <h4>All </h4>
                 <h4>Mobile </h4>
                 <h4>Laptop </h4>
                 <h4>Computer </h4>
@@ -89,17 +90,17 @@ const Products = () => {
                 Clear Filters
               </button>
             </section>
-            <section>
+            <section className="max-w-[65rem]  ">
               <div
                 className={` mt-16  flex ${
                   isGrid ? "flex-wrap" : "flex-col"
-                } gap-10 items-center justify-left`}
+                } gap-3 items-center justify-left`}
               >
                 {products.map((currElem, index) => {
                   return (
                     <div key={index}>
                       <Link to={`/products/${currElem._id}`}>
-                        <FeaturedCard item={currElem} />
+                        <FeaturedCard item={currElem} isGrid={isGrid} />
                       </Link>
                     </div>
                   );

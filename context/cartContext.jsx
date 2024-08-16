@@ -17,8 +17,7 @@ const CartProvider = ({ children }) => {
     const correctedPurchase = { ...itemPurchased, subtotal };
     dispatch({ type: "SET_PURCHASE_ITEM", payload: correctedPurchase });
   };
-  const deleteCartItem = (id, name) => {
-    console.log(id, name);
+  const deleteCartItem = (id) => {
     dispatch({ type: "DELETE_ITEM", payload: id });
   };
 

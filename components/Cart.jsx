@@ -1,17 +1,30 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { useCartContext } from "../context/cartContext";
 import Nav from "./home/Nav";
+import Modal from "./Modal";
 import Loading from "./products/Loading";
 import { MdDelete } from "react-icons/md";
 
 // eslint-disable-next-line react/prop-types
 const Cart = () => {
   const { products, isLoading, deleteCartItem } = useCartContext();
+  const [isModal, setIsModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState("");
+  const modal = {
+    prompt: "Are you sure? Please, Confirm!",
+    btn: [{ name: "Confirm" }, { name: "Cancel" }],
+  };
 
   let total = 0;
   // eslint-disable-next-line react/prop-types
   return (
     <>
+      <div>
+        {isModal && (
+          <Modal modal={modal} state={setIsModal} action={deleteCartItem} payload={itemToDelete}/>
+        )}
+      </div>
       <Nav />
       {isLoading === true ? (
         <Loading />
@@ -47,11 +60,8 @@ const Cart = () => {
                     <td>
                       <button
                         onClick={() => {
-                          confirm(
-                            `Do you want to delete ${currElem.name} from your cart? `
-                          )
-                            ? deleteCartItem(currElem.id, currElem.name)
-                            : null;
+                          setIsModal(true);
+                          setItemToDelete(currElem.id);
                         }}
                       >
                         <MdDelete className="text-red-500 text-xl" />
