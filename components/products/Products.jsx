@@ -6,23 +6,26 @@ import { IoGrid, IoList } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useFilterContext } from "../../context/filterContext";
 const Products = () => {
-  const { products, isGrid, setIsGrid } = useProductContext();
+  const { isGrid, setIsGrid } = useProductContext();
   const {
     filterProducts,
-    setCategoryFilter,
-    setInitialFilter,
-    setCompanyFilter,
-    setPriceFilter,
-    filterObj,
-    setFilterObj,
+    allProducts,
+    setFilterSource,
+
+    sortingValue,
+    setSortingValue,
+    filterSource,
+    clearFilter,
   } = useFilterContext();
 
-  const handleClearFilters = () => {
-    setFilterObj(filterObj); // Reset local filter object
-    setInitialFilter(); // Reset filters in context
+  const getUniqueData = (data, property) => {
+    let newVal = data.map((currElem) => {
+      return currElem[property];
+    });
+    newVal = ["All", ...new Set(newVal)];
+    return newVal;
   };
-
-  console.log(products);
+  const allCategories = getUniqueData(allProducts, "category");
 
   return (
     <>
@@ -33,7 +36,10 @@ const Products = () => {
             <input
               type="text"
               placeholder="Search"
+              value={filterSource.searchText}
+              name="searchText"
               className="border-2 border-zinc-400 text-zinc-500 px-2 w-[12rem]"
+              onChange={setFilterSource}
             />
             <div className="flex gap-6 text-lg">
               <IoGrid
@@ -53,59 +59,33 @@ const Products = () => {
             <select
               name="price_filter"
               id="price_filter"
-              defaultValue={"lowest"}
+              value={sortingValue}
               className="border-2 border-zinc-400 text-zinc-500"
+              onChange={setSortingValue}
             >
               <option value="lowest">price(lowest)</option>
               <option value="highest">price(highest)</option>
+              <option value="a-z">price(a-z)</option>
+              <option value="z-a">price(z-a)</option>
             </select>
           </div>
           <div className="flex gap-1">
             <section className="flex flex-col gap-8 min-w-[12rem] max-w-[12rem] text-zinc-500">
               <div className="flex flex-col gap-2 mt-10 *:cursor-pointer">
                 <h2 className="font-bold text-zinc-600 text-lg">Category</h2>
-                <h4
-                  onClick={() => {
-                    setInitialFilter();
-                  }}
-                >
-                  All{" "}
-                </h4>
-                <h4
-                  onClick={() => {
-                    setCategoryFilter("Mobile");
-                  }}
-                >
-                  Mobile{" "}
-                </h4>
-                <h4
-                  onClick={() => {
-                    setCategoryFilter("Laptop");
-                  }}
-                >
-                  Laptop{" "}
-                </h4>
-                <h4
-                  onClick={() => {
-                    setCategoryFilter("Computer");
-                  }}
-                >
-                  Computer{" "}
-                </h4>
-                <h4
-                  onClick={() => {
-                    setCategoryFilter("Accessory");
-                  }}
-                >
-                  Accessories{" "}
-                </h4>
-                <h4
-                  onClick={() => {
-                    setCategoryFilter("Wearable");
-                  }}
-                >
-                  Wearables
-                </h4>
+                {allCategories.map((elem, index) => {
+                  return (
+                    <button
+                      className="text-left focus:outline-none focus:border-b-2 focus:border-emerald-500"
+                      name={"category"}
+                      value={elem}
+                      onClick={setFilterSource}
+                      key={index}
+                    >
+                      {elem}
+                    </button>
+                  );
+                })}
               </div>
               <div>
                 <h2 className="font-bold text-zinc-600 mb-[0.5rem] text-lg">
@@ -114,13 +94,10 @@ const Products = () => {
                 <select
                   name="company"
                   id="company"
-                  onChange={(e) => {
-                    setCompanyFilter(e.target.value);
-                    setFilterObj({ ...filterObj, company: e.target.value });
-                  }}
-                  value={filterObj.company}
+                  value={filterSource.company}
+                  onChange={setFilterSource}
                 >
-                  <option value="all">All</option>
+                  <option value="All">All</option>
                   <option value="apple">Apple</option>
                   <option value="samsung">Samsung</option>
                   <option value="dell">Dell</option>
@@ -134,27 +111,21 @@ const Products = () => {
                 </h2>
                 <label htmlFor="price_range" className="text-sm">
                   {" "}
-                  रु{filterObj.sliderValue}
+                  रु{filterSource.price}
                 </label>
                 <input
                   type="range"
-                  id="price_range"
-                  name="price_range"
+                  name="price"
                   min={1000}
                   max={200000}
                   step={10000}
-                  value={filterObj.sliderValue}
-                  onChange={(e) => {
-                    setFilterObj({ ...filterObj, sliderValue: e.target.value });
-                    setPriceFilter(e.target.value);
-                  }}
+                  value={filterSource.price}
+                  onChange={setFilterSource}
                 />
               </div>
               <button
                 className="border-2  border-emerald-500 bg-emerald-500 text-white font-semibold h-[3rem] max-w-[9rem] min-w-[8rem] "
-                onClick={() => {
-                  handleClearFilters();
-                }}
+                onClick={clearFilter}
               >
                 Clear Filters
               </button>

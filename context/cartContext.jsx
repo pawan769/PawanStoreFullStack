@@ -20,9 +20,14 @@ const CartProvider = ({ children }) => {
   const deleteCartItem = (id) => {
     dispatch({ type: "DELETE_ITEM", payload: id });
   };
+  const clearCart = () => {
+    dispatch({ type: "CLEAR_CART" });
+  };
 
   return (
-    <CartContext.Provider value={{ ...state, setCartPurchase, deleteCartItem }}>
+    <CartContext.Provider
+      value={{ ...state, setCartPurchase, deleteCartItem, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
